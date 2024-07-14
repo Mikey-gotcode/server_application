@@ -9,6 +9,7 @@ mongoose.connect('mongodb://localhost:27017/', { useNewUrlParser: true, useUnifi
     console.log('database connection successful')
 })
 exports.register=async(req,res)=>{
+    console.log(req.body)
     const{userID,Name,phoneNumber,email,Password:hashedPassword,whistles}=req.body
 
     try {
@@ -22,6 +23,7 @@ exports.register=async(req,res)=>{
 }
 
 exports.login=async (req,res)=>{
+    console.log(req.body)
     const {username,password}=req.body
     try {
         const commuter=await Commuter.findOne({username})

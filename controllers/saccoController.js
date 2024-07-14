@@ -8,6 +8,7 @@ console.log("jwt secret:",process.env.JWT_SECRET);
 
 exports.register=async(req,res)=>{
     const{saccoName,saccoOwner,email,phoneNumber,username,password}=req.body
+    console.log(req.body)
 
     try {
         //create if-else that will handle records that already exist
