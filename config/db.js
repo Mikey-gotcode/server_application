@@ -8,7 +8,7 @@ const remoteDB='mongodb+srv://spidungu_barbosa:Mw@ng!X18@ma3cluster.x9epetw.mong
 
 const connectDB=async()=>{
     try {
-        await mongoose.connect(remoteDB,process.env.MONGO_URI)
+        await mongoose.connect(remoteDB)
         console.log('MongoDB connected')
     } catch (error) {
         console.error(error.message)
