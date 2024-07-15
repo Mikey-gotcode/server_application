@@ -1,5 +1,5 @@
 const Sacco=require('../models/Sacco')
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcrypt-nodejs')
 const jwt=require('jsonwebtoken')
 require('dotenv').config()
 console.log("jwt secret:",process.env.JWT_SECRET);

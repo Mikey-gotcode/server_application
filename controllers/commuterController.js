@@ -1,6 +1,6 @@
 const mongoose=require('mongoose')
 const Commuter=require('../models/Commuter')
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcrypt-nodejs')
 const jwt=require('jsonwebtoken')
 const Vehicle=require('../models/Vehicle')
 
