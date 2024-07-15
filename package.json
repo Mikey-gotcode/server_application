@@ -7,7 +7,7 @@
     "dev":"nodemon server.js",
     "production": "node server.js" 
   },
-  "keywords": [],
+  "keywords": ["promise", "async"],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,4 +22,6 @@
   "devDependencies": {
     "nodemon": "^3.1.1"
   }
+  
 }
+
