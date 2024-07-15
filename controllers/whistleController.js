@@ -1,8 +1,9 @@
 const mongoose= require('mongoose')
-const Whistle=require('')
+const Whistle=require('../models/Whistle')
+const remoteDB='mongodb+srv://spidungu_barbosa:Mw@ng!X18@ma3cluster.x9epetw.mongodb.net/?retryWrites=true&w=majority&appName=MA3CLUSTER'
+const localDB='mongodb://localhost:27017/'
 
-
-mongoose.connect('mongodb://localhost:27017/',{useNewUrlParser:true,useUnifiedTopology:true})
+mongoose.connect(remoteDB,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(()=>{
     console.log('database connection successfull')
 
