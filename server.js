@@ -34,8 +34,8 @@ app.use('/sacco', saccoRoutes);
 app.use('/vehicle', vehicleRoutes);
 app.use('/commuter', commuterRoutes);
 
-app.use('/api',(res)=>{
-  res.send('API is running');
+app.use('/api',(_, res)=>{
+  res.json({message:'API is running'});
 })
 
 io.on('connection', (socket) => {
