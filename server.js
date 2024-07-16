@@ -16,16 +16,16 @@ const app = express();
 
 // CORS configuration for Express routes
 app.use(cors({
-  origin: '*',  // Replace with your frontend URL
+  origin: 'https://ma3sacco.netlify.app',  // Replace with your frontend URL
   methods: ['GET', 'POST'],  // Specify allowed HTTP methods
   allowedHeaders: ['Content-Type'],  // Specify allowed headers
 }));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-})
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// })
 
 app.use(express.json());
 
