@@ -28,7 +28,11 @@ const io = SocketIO(httpsServer, {
   }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://ma3sacco.netlify.app',  // Replace with your frontend URL
+  methods: ['GET', 'POST'],  // Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type'],  // Specify allowed headers
+}));
 app.use(express.json());
 
 app.use('/sacco', saccoRoutes);
