@@ -4,16 +4,32 @@ const fs = require('fs');
 const SocketIO = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
-//const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 const vehicleRoutes = require('./routers/vehicleRoutes');
 const saccoRoutes = require('./routers/saccoRoutes');
 const commuterRoutes = require('./routers/commuterRoutes');
-const { default: mongoose } = require('mongoose');
-const {mongoURI}=require('./config/keys')
+const { mongoURI } = require('./config/keys');
 
 dotenv.config();
 
 const app = express();
+
+// CORS configuration for Express routes
+app.use(cors({
+  origin: 'https://ma3sacco.netlify.app',  // Replace with your frontend URL
+  methods: ['GET', 'POST'],  // Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type'],  // Specify allowed headers
+}));
+
+app.use(express.json());
+
+app.use('/sacco', saccoRoutes);
+app.use('/vehicle', vehicleRoutes);
+app.use('/commuter', commuterRoutes);
+
+app.use('/api', (_, res) => {
+  res.json({ message: 'API is running' });
+});
 
 const sslOptions = {
   key: fs.readFileSync('./server.key'),      // Update with actual path
@@ -23,24 +39,9 @@ const sslOptions = {
 const httpsServer = https.createServer(sslOptions, app);
 const io = SocketIO(httpsServer, {
   cors: {
-    origin: "*",
+    origin: 'https://ma3sacco.netlify.app',
     methods: ["GET", "POST"]
   }
-});
-
-app.use(cors({
-  origin: 'https://ma3sacco.netlify.app',  // Replace with your frontend URL
-  methods: ['GET', 'POST'],  // Specify allowed HTTP methods
-  allowedHeaders: ['Content-Type'],  // Specify allowed headers
-}));
-app.use(express.json());
-
-app.use('/sacco', saccoRoutes);
-app.use('/vehicle', vehicleRoutes);
-app.use('/commuter', commuterRoutes);
-
-app.use('/api', (_, res) => {
-  res.json({ message: 'API is running' });
 });
 
 io.on('connection', (socket) => {
@@ -59,13 +60,12 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 5000;
 
 // Connect to the database before starting the server
-mongoose
-.connect(mongoURI)
-.then(() => {
-  httpsServer.listen(PORT, () => {
-    console.log(`Server running on https://MA3.co.ke:${PORT}`);
+mongoose.connect(mongoURI)
+  .then(() => {
+    httpsServer.listen(PORT, () => {
+      console.log(`Server running on https://MA3.co.ke:${PORT}`);
+    });
+  }).catch(error => {
+    console.error('Failed to connect to the database:', error);
+    process.exit(1);
   });
-}).catch(error => {
-  console.error('Failed to connect to the database:', error);
-  process.exit(1);
-});
