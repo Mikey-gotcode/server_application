@@ -9,7 +9,7 @@ const vehicleRoutes = require('./routers/vehicleRoutes');
 const saccoRoutes = require('./routers/saccoRoutes');
 const commuterRoutes = require('./routers/commuterRoutes');
 const { default: mongoose } = require('mongoose');
-const db=require('./config/keys')
+const db=require('./config/keys').mongoURI
 
 dotenv.config();
 
