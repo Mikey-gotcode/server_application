@@ -9,7 +9,7 @@ const vehicleRoutes = require('./routers/vehicleRoutes');
 const saccoRoutes = require('./routers/saccoRoutes');
 const commuterRoutes = require('./routers/commuterRoutes');
 const { default: mongoose } = require('mongoose');
-const db=require('./config/keys').mongoURI
+const {mongoURI}=require('./config/keys')
 
 dotenv.config();
 
@@ -56,7 +56,7 @@ const PORT = process.env.PORT || 5000;
 
 // Connect to the database before starting the server
 mongoose
-.connect(db)
+.connect(mongoURI)
 .then(() => {
   httpsServer.listen(PORT, () => {
     console.log(`Server running on https://MA3.co.ke:${PORT}`);
