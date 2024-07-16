@@ -10,7 +10,6 @@ const saccoRoutes = require('./routers/saccoRoutes');
 const commuterRoutes = require('./routers/commuterRoutes');
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -52,6 +51,13 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 5000;
-httpsServer.listen(PORT, () => {
-  console.log(`Server running on https://MA3.co.ke:${PORT}`);
+
+// Connect to the database before starting the server
+connectDB().then(() => {
+  httpsServer.listen(PORT, () => {
+    console.log(`Server running on https://MA3.co.ke:${PORT}`);
+  });
+}).catch(error => {
+  console.error('Failed to connect to the database:', error);
+  process.exit(1);
 });
