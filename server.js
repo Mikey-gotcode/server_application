@@ -16,9 +16,9 @@ const app = express();
 
 // CORS configuration for Express routes
 app.use(cors({
-  origin: 'https://ma3sacco.netlify.app',  // Replace with your frontend URL
+  origin: '*',  // Replace with your frontend URL
   methods: ['GET', 'POST'],  // Specify allowed HTTP methods
-  allowedHeaders: ['Content-Type'],  // Specify allowed headers
+  //allowedHeaders: ['Content-Type'],  // Specify allowed headers
 }));
 // app.use((req, res, next) => {
 //   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -45,7 +45,7 @@ const sslOptions = {
 const httpsServer = https.createServer(sslOptions, app);
 const io = SocketIO(httpsServer, {
   cors: {
-    origin: 'https://ma3sacco.netlify.app',
+    origin: '*',
     methods: ["GET", "POST"]
   }
 });
