@@ -1,7 +1,7 @@
 const Vehicle=require('../models/Vehicle')
 const bcrypt=require('bcrypt-nodejs')
 const jwt=require('jsonwebtoken')
-const router=require('express').Router
+//const router=require('express').Router
 
 // const {check, validationResult}=require('express-validator')
 

@@ -1,4 +1,4 @@
-const mongoose=require('mongoose')
+//const mongoose=require('mongoose')
 const Commuter=require('../models/Commuter')
 const bcrypt=require('bcrypt-nodejs')
 const jwt=require('jsonwebtoken')
@@ -6,12 +6,12 @@ const Vehicle=require('../models/Vehicle')
 const remoteDB='mongodb+srv://spidungu_barbosa:Mw@ng!X18@ma3cluster.x9epetw.mongodb.net/?retryWrites=true&w=majority&appName=MA3CLUSTER'
 //const localDB='mongodb://localhost:27017/'
 
-mongoose.connect(remoteDB,{useNewUrlParser:true,useUnifiedTopology:true})
 
-mongoose.connect(remoteDB, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(()=>{
-    console.log('database connection successful')
-})
+
+// mongoose.connect(remoteDB, { useNewUrlParser: true, useUnifiedTopology: true })
+// .then(()=>{
+//     console.log('database connection successful')
+// })
 exports.register=async(req,res)=>{
     console.log(req.body)
     const{userID,Name,phoneNumber,email,Password:hashedPassword,whistles}=req.body

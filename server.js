@@ -52,4 +52,8 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 5000;
-httpsServer.listen(PORT, () => console.log(`Server running on https://MA3.co.ke:${PORT}`));
+httpsServer.listen(PORT, () =>{ 
+
+  console.log(`Server running on https://MA3.co.ke:${PORT}`)
+
+});
