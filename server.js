@@ -4,10 +4,12 @@ const fs = require('fs');
 const SocketIO = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+//const connectDB = require('./config/db');
 const vehicleRoutes = require('./routers/vehicleRoutes');
 const saccoRoutes = require('./routers/saccoRoutes');
 const commuterRoutes = require('./routers/commuterRoutes');
+const { default: mongoose } = require('mongoose');
+const db=require('./config/keys')
 
 dotenv.config();
 
@@ -53,7 +55,9 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 5000;
 
 // Connect to the database before starting the server
-connectDB().then(() => {
+mongoose
+.connect(db)
+.then(() => {
   httpsServer.listen(PORT, () => {
     console.log(`Server running on https://MA3.co.ke:${PORT}`);
   });
