@@ -9,18 +9,20 @@ const vehicleRoutes = require('./routers/vehicleRoutes');
 const saccoRoutes = require('./routers/saccoRoutes');
 const commuterRoutes = require('./routers/commuterRoutes');
 const { mongoURI } = require('./config/keys');
+const {getVehicleID}=require('./controllers/vehicleController')
 
 dotenv.config();
 
 const app = express();
 
 // CORS configuration for Express routes
-app.use(cors({
-  origin: '[https://ma3sacco.netlify.app]',  // Replace with your frontend URL
-  methods: ['GET', 'POST'],  // Specify allowed HTTP methods
-  allowedHeaders: ['Content-Type'],
-  credentials:true  // Specify allowed headers
-}));
+app.use(cors())
+// app.use(cors({
+//   origin: '[https://ma3sacco.netlify.app]',  // Replace with your frontend URL
+//   methods: ['GET', 'POST'],  // Specify allowed HTTP methods
+//   allowedHeaders: ['Content-Type'],
+//   credentials:true  // Specify allowed headers
+// }));
 // app.use((req, res, next) => {
 //   res.setHeader("Access-Control-Allow-Origin", "*");
 //   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
@@ -44,11 +46,18 @@ const sslOptions = {
 };
 
 const httpsServer = https.createServer(sslOptions, app);
+// const io = SocketIO(httpsServer, {
+//   cors: {
+//     origin: ['https://ma3sacco.netlify.app'],
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["Content-Type", "Authorization"]
+
+//   }
+// });
 const io = SocketIO(httpsServer, {
   cors: {
-    origin: ['https://ma3sacco.netlify.app'],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    origin: '*',
+    methods: ["GET", "POST"]
 
   }
 });
@@ -57,9 +66,11 @@ io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
 
   socket.on('sendLocation', (data) => {
-    console.log('Location received:', data);
-    socket.broadcast.emit('receiveLocation', data);
-  });
+    const vehicleID = getVehicleID();
+    console.log('Location received from vehicle:', vehicleID, data);
+    // Emit data with vehicleID
+    socket.broadcast.emit('receiveLocation', { ...data, vehicleID });
+});
 
   socket.on('disconnect', () => {
     console.log('Client disconnected:', socket.id);

@@ -3,7 +3,7 @@ module.exports = {
     secretOrKey: 'secret'
   };
   
-//   module.exports = {
-//     mongoURI: 'mongodb://localhost:27017',
-//   };
+  // module.exports = {
+  //   mongoURI: 'mongodb://localhost:27017',
+  // };
   

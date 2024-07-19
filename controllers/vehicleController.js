@@ -1,10 +1,10 @@
 const Vehicle=require('../models/Vehicle')
-const bcrypt=require('bcrypt-nodejs')
+const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 //const router=require('express').Router
 
 // const {check, validationResult}=require('express-validator')
-
+let vehicleID=null
 exports.register=async (req,res)=>{
     console.log("received vehicle information",req.body)
     const {vehicleNo,companyName,vehicleRegistrationNumber,routes,fareRanges,docks,password}=req.body
@@ -28,14 +28,18 @@ exports.login=async (req,res)=>{
     try {
         const vehicle=await Vehicle.findOne({vehicleRegistrationNumber})
         console.log(vehicle)
+        vehicleID=vehicle._id
         if(!vehicle) return res.status(400).json({message:"vehicle not found"})
         const isMatch=await bcrypt.compare(password,vehicle.password)
     if(!isMatch)return res.status(400).json({message:"invalid credentials"})
     const token=jwt.sign({id:vehicle._id},process.env.JWT_SECRET,{expiresIn:"1h"})
- return res.status(200).json({token,vehicle})
+
+     return res.status(200).json({token,vehicle})
+ 
     } catch (error) {
         res.status(500).json({error:error.message})
     }
+   
 }
 
 exports.searchVehicle=async(req,res)=>{
@@ -48,3 +52,5 @@ return res.status(200).json(searchResult)
         
     }
 }
+exports.getVehicleID = () => vehicleID;
+

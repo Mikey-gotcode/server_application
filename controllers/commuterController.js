@@ -1,6 +1,6 @@
 //const mongoose=require('mongoose')
 const Commuter=require('../models/Commuter')
-const bcrypt=require('bcrypt-nodejs')
+const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 const Vehicle=require('../models/Vehicle')
 const remoteDB='mongodb+srv://spidungu_barbosa:Mw@ng!X18@ma3cluster.x9epetw.mongodb.net/?retryWrites=true&w=majority&appName=MA3CLUSTER'
